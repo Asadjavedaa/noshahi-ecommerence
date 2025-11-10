@@ -388,6 +388,78 @@
             color: #666; /* Default subtle color */
         }
 
+        /* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .container {
+        display: flex;
+        flex-direction: column; /* Stack sidebars and main content */
+        padding: 10px;
+    }
+
+    .pc-sidebar,
+    .policy-sidebar {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    .main-content-area {
+        width: 100%;
+    }
+
+    .dashboard,
+    .customer-service-section {
+        padding: 10px 0;
+    }
+
+    .user-assets-summary {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .asset-item {
+        flex: 1 1 45%; /* Make items take half width on small screens */
+        text-align: center;
+    }
+
+    .order-status-icons {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .status-item {
+        flex: 1 1 30%; /* Adjust order status icons for mobile */
+        text-align: center;
+    }
+
+    .collapsible-header {
+        font-size: 16px;
+    }
+
+    .collapsible-content li a {
+        font-size: 14px;
+    }
+
+    .wishlist h4,
+    .following h4,
+    .recently-viewed h4 {
+        font-size: 16px;
+    }
+
+    .coupon-alert {
+        font-size: 14px;
+        padding: 10px;
+    }
+
+    .sign-out {
+        display: block;
+        text-align: center;
+        margin-top: 20px;
+    }
+}
+
+
     </style>
 </head>
 <body>
@@ -563,9 +635,7 @@
         </ul>
         <a href="#" class="sign-out">Sign Out</a>
     </div>
-
-
-
+    
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const headers = document.querySelectorAll('.collapsible-header');
