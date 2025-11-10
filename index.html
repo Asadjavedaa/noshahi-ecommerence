@@ -1,621 +1,490 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SHEIN Personal Center Clone</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    
-    <style>
-        /* --- CSS STYLES --- */
-        
-        /* Base and Layout */
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f5f5f5;
-            color: #333;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>User Dashboard</title>
+<!-- Font Awesome CDN -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+<style>
+/* ====================== GLOBAL STYLES ====================== */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5;
+    color: #333;
+}
+.container {
+    display: flex;
+    max-width: 1200px;
+    margin: 20px auto;
+    background-color: #fff;
+    min-height: 80vh;
+    border: 1px solid #eee;
+    gap: 20px;
+    flex-wrap: wrap;
+}
 
-        .container {
-            display: flex;
-            max-width: 1200px;
-            margin: 20px auto;
-            background-color: #fff;
-            min-height: 80vh;
-            border: 1px solid #eee; /* Outer container border */
-        }
-        
-        /* Left Sidebar (Personal Center Menu) */
-        .pc-sidebar {
-            width: 250px;
-            padding: 20px 0;
-            border-right: 1px solid #eee;
-            flex-shrink: 0; /* Prevents shrinking */
-        }
+/* ====================== LEFT SIDEBAR ====================== */
+.pc-sidebar {
+    width: 250px;
+    padding: 20px 0;
+    border-right: 1px solid #eee;
+    flex-shrink: 0;
+}
+.pc-sidebar h2 {
+    font-size: 16px;
+    font-weight: bold;
+    padding: 0 20px 10px;
+    margin-top: 0;
+    border-bottom: 1px solid #eee;
+}
+.pc-sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.pc-sidebar li {
+    font-size: 14px;
+}
+.pc-sidebar li a {
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+    text-decoration: none;
+    color: #333;
+    transition: background-color 0.2s;
+}
+.pc-sidebar li a:hover {
+    background-color: #f7f7f7;
+}
+.pc-sidebar li a i {
+    margin-right: 10px;
+    width: 16px;
+    text-align: center;
+}
 
-        .pc-sidebar h2 {
-            font-size: 16px;
-            font-weight: bold;
-            padding: 0 20px 10px;
-            margin-top: 0;
-            border-bottom: 1px solid #eee;
-        }
+/* Collapsible Menu */
+.collapsible-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+.collapsible-header:hover {
+    background-color: #f7f7f7;
+}
+.collapsible-content {
+    padding-left: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+}
+.collapsible-content.open {
+    max-height: 500px;
+    transition: max-height 0.5s ease-in;
+}
+.collapsible-content li a {
+    padding: 8px 20px 8px 40px;
+}
 
-        .pc-sidebar ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
+/* Points and VIP */
+.plus-points {
+    color: #f90;
+    font-weight: bold;
+    font-size: 10px;
+    margin-left: 5px;
+}
 
-        .pc-sidebar li {
-            font-size: 14px;
-        }
-        
-        .pc-sidebar li a {
-            display: flex;
-            align-items: center;
-            padding: 10px 20px;
-            text-decoration: none;
-            color: #333;
-            transition: background-color 0.2s;
-        }
+/* ====================== MAIN CONTENT ====================== */
+.main-content-area {
+    display: flex;
+    flex-grow: 1;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+.dashboard {
+    flex-grow: 1;
+    padding: 20px;
+    min-width: 500px;
+    background-color: #fff;
+}
+.customer-service-section {
+    width: 220px;
+    padding: 20px;
+    border-left: 1px solid #eee;
+    flex-shrink: 0;
+    background-color: #fff;
+}
 
-        .pc-sidebar li a:hover {
-            background-color: #f7f7f7;
-        }
-        
-        .pc-sidebar li a i {
-            margin-right: 10px;
-            width: 16px; 
-            text-align: center;
-        }
+/* User Header */
+.user-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 20px;
+}
+.user-info h3 {
+    margin: 0;
+    font-size: 18px;
+}
+.vip-badge {
+    font-size: 10px;
+    background-color: #333;
+    color: #fff;
+    padding: 2px 5px;
+    border-radius: 3px;
+    margin-left: 10px;
+    vertical-align: middle;
+}
+.my-profile-link {
+    text-decoration: none;
+    color: #000;
+    font-size: 14px;
+}
 
-        /* Collapsible Menu Styling */
-        .collapsible-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 16px;
-            font-weight: bold;
-            padding: 10px 20px;
-            cursor: pointer;
-            transition: background-color 0.2s;
-        }
-        
-        .collapsible-header:hover {
-            background-color: #f7f7f7;
-        }
-        
-        .collapsible-content {
-            padding-left: 0px;
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease-out;
-        }
+/* User Assets Summary */
+.user-assets-summary {
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+    margin-bottom: 30px;
+    padding: 20px 0;
+    border-bottom: 1px solid #eee;
+    border-top: 1px solid #eee;
+}
+.asset-item {
+    cursor: pointer;
+    width: 25%;
+}
+.asset-item span {
+    display: block;
+    font-size: 18px;
+    font-weight: bold;
+}
+.asset-item small {
+    font-size: 12px;
+    color: #666;
+}
 
-        .collapsible-content.open {
-            max-height: 500px; /* Large enough value to show content */
-            transition: max-height 0.5s ease-in;
-        }
-        
-        .collapsible-content li a {
-            padding: 8px 20px 8px 40px; /* Indentation for submenu */
-        }
+/* Coupon Alert */
+.coupon-alert {
+    background-color: #fff8e1;
+    color: #856404;
+    padding: 10px;
+    border: 1px solid #ffe0b2;
+    margin-bottom: 20px;
+    font-size: 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.coupon-alert button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 16px;
+    color: #856404;
+}
 
-        /* Points and VIP */
-        .plus-points {
-            color: #f90;
-            font-weight: bold;
-            font-size: 10px;
-            margin-left: 5px;
-        }
-        
-        /* Main Content Area */
-        .main-content-area {
-            display: flex;
-            flex-grow: 1;
-        }
+/* My Orders Section */
+.my-orders-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+.my-orders-header h3 {
+    margin: 0;
+    font-size: 16px;
+}
+.view-all-link {
+    text-decoration: none;
+    color: #666;
+    font-size: 12px;
+}
+.order-status-icons {
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+    margin-bottom: 30px;
+}
+.status-item {
+    cursor: pointer;
+    width: 20%;
+}
+.status-item i {
+    font-size: 24px;
+    margin-bottom: 5px;
+    color: #333;
+}
+.status-item small {
+    display: block;
+    font-size: 12px;
+}
+.empty-orders {
+    text-align: center;
+    padding: 50px 0;
+    color: #999;
+}
+.empty-orders i {
+    font-size: 50px;
+    margin-bottom: 10px;
+    color: #ccc;
+}
 
-        .dashboard {
-            flex-grow: 1;
-            padding: 20px;
-            min-width: 500px; /* Ensure content doesn't get too squished */
-        }
-        
-        .customer-service-section {
-            width: 220px;
-            padding: 20px;
-            border-left: 1px solid #eee;
-            flex-shrink: 0;
-        }
+/* Customer Service Panel */
+.customer-service-section h3 {
+    font-size: 16px;
+    margin-top: 0;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+}
+.cs-links {
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+    margin-bottom: 30px;
+}
+.cs-links a {
+    text-decoration: none;
+    color: #333;
+    font-size: 12px;
+    width: 50%;
+}
+.cs-links i {
+    font-size: 24px;
+    margin-bottom: 5px;
+    display: block;
+}
+.wishlist, .following, .recently-viewed {
+    margin-bottom: 20px;
+    border-top: 1px solid #eee;
+    padding-top: 15px;
+}
+.wishlist h4, .following h4, .recently-viewed h4 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+    margin: 0;
+    font-weight: normal;
+}
+.wishlist span, .following span {
+    color: #999;
+}
+.recently-viewed a {
+    color: #666;
+    text-decoration: none;
+    font-size: 12px;
+}
 
-        /* User Header */
-        .user-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding-bottom: 20px;
-            border-bottom: 1px solid #eee;
-            margin-bottom: 20px;
-        }
+/* ====================== POLICY SIDEBAR ====================== */
+.policy-sidebar {
+    width: 250px;
+    padding: 20px 0;
+    background-color: #fff;
+    border: 1px solid #eee;
+    flex-shrink: 0;
+}
+.policy-sidebar h2 {
+    font-size: 16px;
+    font-weight: bold;
+    padding: 0 20px 10px;
+    margin-top: 0;
+    border-bottom: 1px solid #eee;
+}
+.policy-sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.policy-sidebar li {
+    font-size: 14px;
+}
+.policy-sidebar li a {
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+    text-decoration: none;
+    color: #333;
+    transition: background-color 0.2s;
+}
+.policy-sidebar li a:hover {
+    background-color: #f7f7f7;
+}
+.policy-sidebar li a i {
+    margin-right: 10px;
+    width: 16px;
+    text-align: center;
+}
+.sign-out {
+    font-weight: bold;
+    padding: 15px 20px 10px;
+    margin-top: 20px;
+    border-top: 1px solid #eee;
+    display: block;
+    text-decoration: none;
+    color: #333;
+}
+.sign-out:hover {
+    background-color: #f7f7f7;
+}
 
-        .user-info h3 {
-            margin: 0;
-            font-size: 18px;
-        }
+/* Icon default colors */
+.fa-check-circle, .fa-truck, .fa-lock, .fa-credit-card, .fa-wallet, .fa-dollar-sign, .fa-tags, .fa-handshake, .fa-gem, .fa-book, .fa-gift, .fa-search, .fa-clipboard-list {
+    color: #666;
+}
 
-        .vip-badge {
-            font-size: 10px;
-            background-color: #333;
-            color: white;
-            padding: 2px 5px;
-            border-radius: 3px;
-            margin-left: 10px;
-            vertical-align: middle;
-        }
-
-        .my-profile-link {
-            text-decoration: none;
-            color: #000;
-            font-size: 14px;
-        }
-
-        /* Asset Summary Boxes */
-        .user-assets-summary {
-            display: flex;
-            justify-content: space-around;
-            text-align: center;
-            margin-bottom: 30px;
-            padding: 20px 0;
-            border-bottom: 1px solid #eee;
-            border-top: 1px solid #eee;
-        }
-
-        .asset-item {
-            cursor: pointer;
-            width: 25%;
-        }
-
-        .asset-item span {
-            display: block;
-            font-size: 18px;
-            font-weight: bold;
-        }
-
-        .asset-item small {
-            font-size: 12px;
-            color: #666;
-        }
-        
-        /* Coupon Alert */
-        .coupon-alert {
-            background-color: #fff8e1;
-            color: #856404;
-            padding: 10px;
-            border: 1px solid #ffe0b2;
-            margin-bottom: 20px;
-            font-size: 14px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .coupon-alert button {
-            background: none;
-            border: none;
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 16px;
-            color: #856404;
-        }
-
-        /* My Orders Section */
-        .my-orders-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-
-        .my-orders-header h3 {
-            margin: 0;
-            font-size: 16px;
-        }
-
-        .view-all-link {
-            text-decoration: none;
-            color: #666;
-            font-size: 12px;
-        }
-
-        .order-status-icons {
-            display: flex;
-            justify-content: space-around;
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .status-item {
-            cursor: pointer;
-            width: 20%;
-        }
-
-        .status-item i {
-            font-size: 24px;
-            margin-bottom: 5px;
-            color: #333;
-        }
-
-        .status-item small {
-            display: block;
-            font-size: 12px;
-        }
-        
-        .empty-orders {
-            text-align: center;
-            padding: 50px 0;
-            color: #999;
-        }
-
-        .empty-orders i {
-            font-size: 50px;
-            margin-bottom: 10px;
-            color: #ccc;
-        }
-        
-        /* Customer Service Right Panel */
-        .customer-service-section h3 {
-            font-size: 16px;
-            margin-top: 0;
-            padding-bottom: 10px;
-            border-bottom: 1px solid #eee;
-        }
-        
-        .cs-links {
-            display: flex;
-            justify-content: space-around;
-            text-align: center;
-            margin-bottom: 30px;
-        }
-        
-        .cs-links a {
-            text-decoration: none;
-            color: #333;
-            font-size: 12px;
-            width: 50%;
-        }
-
-        .cs-links i {
-            font-size: 24px;
-            margin-bottom: 5px;
-            display: block;
-        }
-        
-        .wishlist, .following, .recently-viewed {
-            margin-bottom: 20px;
-            border-top: 1px solid #eee;
-            padding-top: 15px;
-        }
-
-        .wishlist h4, .following h4, .recently-viewed h4 {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 14px;
-            margin: 0;
-            font-weight: normal;
-        }
-
-        .wishlist span, .following span {
-            color: #999;
-        }
-        
-        .recently-viewed a {
-            color: #666;
-            text-decoration: none;
-            font-size: 12px;
-        }
-
-
-
-        
-
-
-        .policy-sidebar {
-            margin-left: 70px;
-            width: 250px;
-            padding: 20px 0;
-            background-color: #fff;
-            border: 1px solid #eee;
-        }
-
-        .policy-sidebar h2 {
-            font-size: 16px;
-            font-weight: bold;
-            padding: 0 20px 10px;
-            margin-top: 0;
-            border-bottom: 1px solid #eee;
-        }
-
-        .policy-sidebar ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .policy-sidebar li {
-            font-size: 14px;
-        }
-        
-        .policy-sidebar li a {
-            display: flex;
-            align-items: center;
-            padding: 10px 20px;
-            text-decoration: none;
-            color: #333;
-            transition: background-color 0.2s;
-        }
-
-        .policy-sidebar li a:hover {
-            background-color: #f7f7f7;
-        }
-        
-        .policy-sidebar li a i {
-            margin-right: 10px;
-            width: 16px; /* Ensure consistent spacing for icons */
-            text-align: center;
-        }
-        
-        /* Styling for the Sign Out Link */
-        .sign-out {
-            font-weight: bold;
-            padding: 15px 20px 10px;
-            margin-top: 20px;
-            border-top: 1px solid #eee;
-            display: block;
-            text-decoration: none;
-            color: #333;
-        }
-        
-        .sign-out:hover {
-            background-color: #f7f7f7;
-        }
-        
-        /* Specific Icon Adjustments to Match Visual Cues */
-        .fa-check-circle, .fa-truck, .fa-lock, .fa-credit-card, .fa-wallet, .fa-dollar-sign, .fa-tags, .fa-handshake, .fa-gem, .fa-book, .fa-gift, .fa-search, .fa-clipboard-list {
-            color: #666; /* Default subtle color */
-        }
-
-        /* Mobile Responsiveness */
-@media (max-width: 768px) {
+/* ====================== MOBILE RESPONSIVENESS ====================== */
+@media (max-width: 1024px) {
     .container {
-        display: flex;
-        flex-direction: column; /* Stack sidebars and main content */
+        flex-direction: column;
+        gap: 10px;
         padding: 10px;
     }
-
-    .pc-sidebar,
-    .policy-sidebar {
-        width: 100%;
-        margin-bottom: 20px;
-    }
-
-    .main-content-area {
+    .pc-sidebar, .policy-sidebar, .main-content-area {
         width: 100%;
     }
-
-    .dashboard,
-    .customer-service-section {
+    .dashboard, .customer-service-section {
         padding: 10px 0;
     }
-
-    .user-assets-summary {
-        display: flex;
+    .user-assets-summary, .order-status-icons {
         flex-wrap: wrap;
         gap: 10px;
     }
-
-    .asset-item {
-        flex: 1 1 45%; /* Make items take half width on small screens */
+    .asset-item, .status-item {
+        flex: 1 1 45%;
         text-align: center;
-    }
-
-    .order-status-icons {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px;
-    }
-
-    .status-item {
-        flex: 1 1 30%; /* Adjust order status icons for mobile */
-        text-align: center;
-    }
-
-    .collapsible-header {
-        font-size: 16px;
-    }
-
-    .collapsible-content li a {
-        font-size: 14px;
-    }
-
-    .wishlist h4,
-    .following h4,
-    .recently-viewed h4 {
-        font-size: 16px;
-    }
-
-    .coupon-alert {
-        font-size: 14px;
-        padding: 10px;
-    }
-
-    .sign-out {
-        display: block;
-        text-align: center;
-        margin-top: 20px;
     }
 }
 
-
-    </style>
+/* For smaller mobile screens */
+@media (max-width: 768px) {
+    .wishlist h4, .following h4, .recently-viewed h4 {
+        font-size: 16px;
+    }
+    .coupon-alert {
+        font-size: 14px;
+    }
+}
+</style>
 </head>
 <body>
 
-    <div class="container">
-        
-        <div class="pc-sidebar">
-            <h2>Personal Center</h2>
-            <ul>
-                <li><a href="#"><i class="fa-solid fa-crown"></i> SHEIN VIP</a></li>
-            </ul>
-            <h2>My Account</h2>
-            <ul>
-                <li><a href="#"><i class="fa-solid fa-user"></i> My Profile <span class="plus-points">+POINTS</span></a></li>
-                <li><a href="#"><i class="fa-solid fa-address-book"></i> Address Book</a></li>
-                <li><a href="#"><i class="fa-solid fa-credit-card"></i> My Payment Options</a></li>
-                <li><a href="#"><i class="fa-solid fa-ruler-combined"></i> My Measurements</a></li>
-                <li><a href="#"><i class="fa-solid fa-gear"></i> Manage My Account <span class="plus-points">+POINTS</span></a></li>
-            </ul>
-            
-            <div class="collapsible-header" data-target="assets-content">
-                My Assets <i class="fa-solid fa-plus" id="assets-icon"></i>
-            </div>
-            <ul class="collapsible-content" id="assets-content">
-                <li><a href="#"><i class="fa-solid fa-wallet"></i> Wallet</a></li>
-                <li><a href="#"><i class="fa-solid fa-gift"></i> Gift Card</a></li>
-                <li><a href="#"><i class="fa-solid fa-tags"></i> Coupons</a></li>
-                <li><a href="#"><i class="fa-solid fa-star"></i> Points</a></li>
-            </ul>
+<div class="container">
+    <!-- LEFT SIDEBAR -->
+    <div class="pc-sidebar">
+        <h2>Personal Center</h2>
+        <ul>
+            <li><a href="#"><i class="fa-solid fa-crown"></i> SHEIN VIP</a></li>
+        </ul>
+        <h2>My Account</h2>
+        <ul>
+            <li><a href="#"><i class="fa-solid fa-user"></i> My Profile <span class="plus-points">+POINTS</span></a></li>
+            <li><a href="#"><i class="fa-solid fa-address-book"></i> Address Book</a></li>
+            <li><a href="#"><i class="fa-solid fa-credit-card"></i> My Payment Options</a></li>
+            <li><a href="#"><i class="fa-solid fa-ruler-combined"></i> My Measurements</a></li>
+            <li><a href="#"><i class="fa-solid fa-gear"></i> Manage My Account <span class="plus-points">+POINTS</span></a></li>
+        </ul>
 
-            <div class="collapsible-header" data-target="orders-content">
-                My Orders <i class="fa-solid fa-plus" id="orders-icon"></i>
-            </div>
-            <ul class="collapsible-content" id="orders-content">
-                <li><a href="#"><i class="fa-solid fa-bag-shopping"></i> All Orders</a></li> 
-            </ul>
-            
-            <div class="collapsible-header">
-                My Favorites <i class="fa-solid fa-plus"></i>
-            </div>
-            <h2>Customer Service</h2>
-            <ul>
-                <li><a href="#"><i class="fa-solid fa-envelope"></i> My Message</a></li>
-                <li><a href="#"><i class="fa-solid fa-file-invoice"></i> Service Records</a></li>
-            </ul>
-            
-            <h2>Other Services</h2>
-            <ul>
-                <li><a href="#"><i class="fa-solid fa-file-alt"></i> Survey Center</a></li>
-                <li><a href="#"><i class="fa-solid fa-comments"></i> Contact Preferences</a></li>
-            </ul>
+        <div class="collapsible-header" data-target="assets-content">
+            My Assets <i class="fa-solid fa-plus"></i>
+        </div>
+        <ul class="collapsible-content" id="assets-content">
+            <li><a href="#"><i class="fa-solid fa-wallet"></i> Wallet</a></li>
+            <li><a href="#"><i class="fa-solid fa-gift"></i> Gift Card</a></li>
+            <li><a href="#"><i class="fa-solid fa-tags"></i> Coupons</a></li>
+            <li><a href="#"><i class="fa-solid fa-star"></i> Points</a></li>
+        </ul>
 
+        <div class="collapsible-header" data-target="orders-content">
+            My Orders <i class="fa-solid fa-plus"></i>
+        </div>
+        <ul class="collapsible-content" id="orders-content">
+            <li><a href="#"><i class="fa-solid fa-bag-shopping"></i> All Orders</a></li>
+        </ul>
+
+        <div class="collapsible-header">
+            My Favorites <i class="fa-solid fa-plus"></i>
         </div>
 
-        <div class="main-content-area">
-            
-            <div class="dashboard">
-                
-                <div class="user-header">
-                    <div class="user-info">
-                        <h3>Hi,asadjavediqbal95 <span class="vip-badge">50</span></h3>
-                    </div>
-                    <a href="#" class="my-profile-link"><i class="fa-solid fa-user-circle"></i> My Profile ></a>
-                </div>
+        <h2>Customer Service</h2>
+        <ul>
+            <li><a href="#"><i class="fa-solid fa-envelope"></i> My Message</a></li>
+            <li><a href="#"><i class="fa-solid fa-file-invoice"></i> Service Records</a></li>
+        </ul>
 
-                <div class="user-assets-summary">
-                    <div class="asset-item">
-                        <span>***</span>
-                        <small>Coupons</small>
-                    </div>
-                    <div class="asset-item">
-                        <span>***</span>
-                        <small>Points</small>
-                    </div>
-                    <div class="asset-item">
-                        <span>***</span>
-                        <small>Wallet</small>
-                    </div>
-                    <div class="asset-item">
-                        <span>***</span>
-                        <small>Gift Card</small>
-                    </div>
-                </div>
-                
-                <div class="coupon-alert">
-                    You have 4 coupon(s) that will expire!
-                    <button onclick="this.parentElement.style.display='none';"><i class="fa-solid fa-xmark"></i></button>
-                </div>
-
-                <div class="my-orders-header">
-                    <h3>My Orders</h3>
-                    <a href="#" class="view-all-link">View All ></a>
-                </div>
-                
-                <div class="order-status-icons">
-                    <div class="status-item">
-                        <i class="fa-solid fa-money-bill-transfer"></i>
-                        <small>Unpaid</small>
-                    </div>
-                    <div class="status-item">
-                        <i class="fa-solid fa-gear"></i>
-                        <small>Processing</small>
-                    </div>
-                    <div class="status-item">
-                        <i class="fa-solid fa-truck"></i>
-                        <small>Shipped</small>
-                    </div>
-                    <div class="status-item">
-                        <i class="fa-solid fa-star"></i>
-                        <small>Review</small>
-                    </div>
-                    <div class="status-item">
-                        <i class="fa-solid fa-undo"></i>
-                        <small>Returns</small>
-                    </div>
-                </div>
-
-                <div class="empty-orders">
-                    <i class="fa-solid fa-tshirt"></i>
-                    <p>It is empty here :-(</p>
-                </div>
-
-            </div>
-            
-            <div class="customer-service-section">
-                <h3>Customer Service</h3>
-                <div class="cs-links">
-                    <a href="#">
-                        <i class="fa-solid fa-envelope"></i>
-                        My Message
-                    </a>
-                    <a href="#">
-                        <i class="fa-solid fa-file-lines"></i>
-                        Service Records
-                    </a>
-                </div>
-                
-                <div class="wishlist">
-                    <h4>Wishlist <span>0 item ></span></h4>
-                </div>
-                
-                <div class="following">
-                    <h4>Following <span>0 item ></span></h4>
-                </div>
-                
-                <div class="recently-viewed">
-                    <h4>Recently Viewed <a href="#">More ></a></h4>
-                </div>
-                
-            </div>
-        </div>
-
+        <h2>Other Services</h2>
+        <ul>
+            <li><a href="#"><i class="fa-solid fa-file-alt"></i> Survey Center</a></li>
+            <li><a href="#"><i class="fa-solid fa-comments"></i> Contact Preferences</a></li>
+        </ul>
     </div>
 
+    <!-- MAIN CONTENT -->
+    <div class="main-content-area">
+        <div class="dashboard">
+            <div class="user-header">
+                <div class="user-info">
+                    <h3>Hi, asadjavediqbal95 <span class="vip-badge">50</span></h3>
+                </div>
+                <a href="#" class="my-profile-link"><i class="fa-solid fa-user-circle"></i> My Profile ></a>
+            </div>
 
+            <div class="user-assets-summary">
+                <div class="asset-item"><span>***</span><small>Coupons</small></div>
+                <div class="asset-item"><span>***</span><small>Points</small></div>
+                <div class="asset-item"><span>***</span><small>Wallet</small></div>
+                <div class="asset-item"><span>***</span><small>Gift Card</small></div>
+            </div>
 
+            <div class="coupon-alert">
+                You have 4 coupon(s) that will expire!
+                <button onclick="this.parentElement.style.display='none';"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+
+            <div class="my-orders-header">
+                <h3>My Orders</h3>
+                <a href="#" class="view-all-link">View All ></a>
+            </div>
+
+            <div class="order-status-icons">
+                <div class="status-item"><i class="fa-solid fa-money-bill-transfer"></i><small>Unpaid</small></div>
+                <div class="status-item"><i class="fa-solid fa-gear"></i><small>Processing</small></div>
+                <div class="status-item"><i class="fa-solid fa-truck"></i><small>Shipped</small></div>
+                <div class="status-item"><i class="fa-solid fa-star"></i><small>Review</small></div>
+                <div class="status-item"><i class="fa-solid fa-undo"></i><small>Returns</small></div>
+            </div>
+
+            <div class="empty-orders">
+                <i class="fa-solid fa-tshirt"></i>
+                <p>It is empty here :-(</p>
+            </div>
+        </div>
+
+        <!-- Customer Service Section -->
+        <div class="customer-service-section">
+            <h3>Customer Service</h3>
+            <div class="cs-links">
+                <a href="#"><i class="fa-solid fa-envelope"></i> My Message</a>
+                <a href="#"><i class="fa-solid fa-file-lines"></i> Service Records</a>
+            </div>
+            <div class="wishlist"><h4>Wishlist <span>0 item ></span></h4></div>
+            <div class="following"><h4>Following <span>0 item ></span></h4></div>
+            <div class="recently-viewed"><h4>Recently Viewed <a href="#">More ></a></h4></div>
+        </div>
+    </div>
+
+    <!-- POLICY SIDEBAR -->
     <div class="policy-sidebar">
         <h2>Policy</h2>
         <ul>
@@ -635,9 +504,10 @@
         </ul>
         <a href="#" class="sign-out">Sign Out</a>
     </div>
-    
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
             const headers = document.querySelectorAll('.collapsible-header');
 
             headers.forEach(header => {
@@ -667,7 +537,4 @@
                 }
             });
         });
-
-    </script>
-</body>
-</html>
+</script>
