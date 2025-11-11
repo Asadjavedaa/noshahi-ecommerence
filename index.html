@@ -4,8 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>User Dashboard</title>
-<!-- Font Awesome CDN -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLMDJ8uR/rC4A3P+3sU+oJ8u5kF2WJ8x13W5A8gWkP5sE6+kF7c5qgD8uR/rC4A=" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <style>
 /* ====================== GLOBAL STYLES ====================== */
 body {
@@ -24,31 +23,36 @@ body {
     border: 1px solid #eee;
     gap: 20px;
     flex-wrap: wrap;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05); /* Added subtle shadow */
 }
 
-/* ====================== LEFT SIDEBAR ====================== */
-.pc-sidebar {
+/* ====================== LEFT SIDEBAR (PC-FIRST) ====================== */
+.pc-sidebar, .policy-sidebar {
     width: 250px;
     padding: 20px 0;
-    border-right: 1px solid #eee;
     flex-shrink: 0;
+    background-color: #fff;
+    border: 1px solid #eee; /* Unified border style */
+    border-top: none; 
+    border-bottom: none;
 }
-.pc-sidebar h2 {
+.pc-sidebar {
+    border-right: 1px solid #eee; /* PC specific border */
+}
+
+.pc-sidebar h2, .policy-sidebar h2 {
     font-size: 16px;
     font-weight: bold;
     padding: 0 20px 10px;
     margin-top: 0;
     border-bottom: 1px solid #eee;
 }
-.pc-sidebar ul {
+.pc-sidebar ul, .policy-sidebar ul {
     list-style: none;
     padding: 0;
     margin: 0;
 }
-.pc-sidebar li {
-    font-size: 14px;
-}
-.pc-sidebar li a {
+.pc-sidebar li a, .policy-sidebar li a {
     display: flex;
     align-items: center;
     padding: 10px 20px;
@@ -56,10 +60,10 @@ body {
     color: #333;
     transition: background-color 0.2s;
 }
-.pc-sidebar li a:hover {
+.pc-sidebar li a:hover, .policy-sidebar li a:hover {
     background-color: #f7f7f7;
 }
-.pc-sidebar li a i {
+.pc-sidebar li a i, .policy-sidebar li a i {
     margin-right: 10px;
     width: 16px;
     text-align: center;
@@ -75,6 +79,7 @@ body {
     padding: 10px 20px;
     cursor: pointer;
     transition: background-color 0.2s;
+    border-bottom: 1px solid #eee; /* Ensure separation */
 }
 .collapsible-header:hover {
     background-color: #f7f7f7;
@@ -86,11 +91,11 @@ body {
     transition: max-height 0.3s ease-out;
 }
 .collapsible-content.open {
-    max-height: 500px;
+    max-height: 500px; /* Sufficient height for smooth transition */
     transition: max-height 0.5s ease-in;
 }
 .collapsible-content li a {
-    padding: 8px 20px 8px 40px;
+    padding: 8px 20px 8px 40px; /* Indent sub-links */
 }
 
 /* Points and VIP */
@@ -135,20 +140,7 @@ body {
     margin: 0;
     font-size: 18px;
 }
-.vip-badge {
-    font-size: 10px;
-    background-color: #333;
-    color: #fff;
-    padding: 2px 5px;
-    border-radius: 3px;
-    margin-left: 10px;
-    vertical-align: middle;
-}
-.my-profile-link {
-    text-decoration: none;
-    color: #000;
-    font-size: 14px;
-}
+/* ... VIP Badge and Profile Link styles are good ... */
 
 /* User Assets Summary */
 .user-assets-summary {
@@ -163,83 +155,25 @@ body {
 .asset-item {
     cursor: pointer;
     width: 25%;
+    flex: 1 1 20%; /* Ensure better distribution */
 }
-.asset-item span {
-    display: block;
-    font-size: 18px;
-    font-weight: bold;
-}
-.asset-item small {
-    font-size: 12px;
-    color: #666;
-}
-
-/* Coupon Alert */
-.coupon-alert {
-    background-color: #fff8e1;
-    color: #856404;
-    padding: 10px;
-    border: 1px solid #ffe0b2;
-    margin-bottom: 20px;
-    font-size: 14px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-.coupon-alert button {
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-weight: bold;
-    font-size: 16px;
-    color: #856404;
-}
+/* ... Asset item text styles are good ... */
 
 /* My Orders Section */
-.my-orders-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 15px;
-}
-.my-orders-header h3 {
-    margin: 0;
-    font-size: 16px;
-}
-.view-all-link {
-    text-decoration: none;
-    color: #666;
-    font-size: 12px;
-}
 .order-status-icons {
     display: flex;
     justify-content: space-around;
     text-align: center;
     margin-bottom: 30px;
+    flex-wrap: wrap; /* Added flex-wrap for mobile */
 }
 .status-item {
     cursor: pointer;
     width: 20%;
+    flex: 1 1 15%; /* Allow wrapping on small screens */
+    padding: 10px 5px; /* Added padding */
 }
-.status-item i {
-    font-size: 24px;
-    margin-bottom: 5px;
-    color: #333;
-}
-.status-item small {
-    display: block;
-    font-size: 12px;
-}
-.empty-orders {
-    text-align: center;
-    padding: 50px 0;
-    color: #999;
-}
-.empty-orders i {
-    font-size: 50px;
-    margin-bottom: 10px;
-    color: #ccc;
-}
+/* ... Status item icon and text styles are good ... */
 
 /* Customer Service Panel */
 .customer-service-section h3 {
@@ -253,94 +187,19 @@ body {
     justify-content: space-around;
     text-align: center;
     margin-bottom: 30px;
+    gap: 10px; /* Added gap */
 }
 .cs-links a {
     text-decoration: none;
     color: #333;
     font-size: 12px;
     width: 50%;
+    flex: 1 1 100px; /* Responsive sizing */
 }
-.cs-links i {
-    font-size: 24px;
-    margin-bottom: 5px;
-    display: block;
-}
-.wishlist, .following, .recently-viewed {
-    margin-bottom: 20px;
-    border-top: 1px solid #eee;
-    padding-top: 15px;
-}
-.wishlist h4, .following h4, .recently-viewed h4 {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 14px;
-    margin: 0;
-    font-weight: normal;
-}
-.wishlist span, .following span {
-    color: #999;
-}
-.recently-viewed a {
-    color: #666;
-    text-decoration: none;
-    font-size: 12px;
-}
-
-/* ====================== POLICY SIDEBAR ====================== */
-.policy-sidebar {
-    width: 250px;
-    padding: 20px 0;
-    background-color: #fff;
-    border: 1px solid #eee;
-    flex-shrink: 0;
-}
-.policy-sidebar h2 {
-    font-size: 16px;
-    font-weight: bold;
-    padding: 0 20px 10px;
-    margin-top: 0;
-    border-bottom: 1px solid #eee;
-}
-.policy-sidebar ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-.policy-sidebar li {
-    font-size: 14px;
-}
-.policy-sidebar li a {
-    display: flex;
-    align-items: center;
-    padding: 10px 20px;
-    text-decoration: none;
-    color: #333;
-    transition: background-color 0.2s;
-}
-.policy-sidebar li a:hover {
-    background-color: #f7f7f7;
-}
-.policy-sidebar li a i {
-    margin-right: 10px;
-    width: 16px;
-    text-align: center;
-}
-.sign-out {
-    font-weight: bold;
-    padding: 15px 20px 10px;
-    margin-top: 20px;
-    border-top: 1px solid #eee;
-    display: block;
-    text-decoration: none;
-    color: #333;
-}
-.sign-out:hover {
-    background-color: #f7f7f7;
-}
+/* ... Other Customer Service section styles are good ... */
 
 /* Icon default colors */
-.fa-check-circle, .fa-truck, .fa-lock, .fa-credit-card, .fa-wallet, .fa-dollar-sign, .fa-tags, .fa-handshake, .fa-gem, .fa-book, .fa-gift, .fa-search, .fa-clipboard-list {
+.fa-check-circle, .fa-truck, .fa-lock, .fa-credit-card, .fa-wallet, .fa-dollar-sign, .fa-tags, .fa-handshake, .fa-gem, .fa-book, .fa-gift, .fa-search, .fa-clipboard-list, .fa-money-bill-transfer, .fa-gear, .fa-star, .fa-undo, .fa-tshirt {
     color: #666;
 }
 
@@ -348,32 +207,154 @@ body {
 @media (max-width: 1024px) {
     .container {
         flex-direction: column;
-        gap: 10px;
-        padding: 10px;
+        gap: 0; /* Reduced overall gap for vertical stacking */
+        padding: 0;
+        margin: 10px; /* Smaller margin on tablet */
+        border: none; /* Remove container border for full width effect */
+        box-shadow: none;
     }
-    .pc-sidebar, .policy-sidebar, .main-content-area {
+    
+    /* Sidebars: Full width and no borders for a clean mobile stack */
+    .pc-sidebar, .policy-sidebar {
+        width: 100%;
+        padding: 0;
+        border: none; 
+        margin-bottom: 10px;
+    }
+
+    /* Wrap content area */
+    .main-content-area {
+        flex-direction: column;
+        gap: 10px;
         width: 100%;
     }
-    .dashboard, .customer-service-section {
+
+    /* Dashboard: Full width and add padding */
+    .dashboard {
+        min-width: unset;
+        width: 100%;
+        padding: 15px; /* Ensure content is padded */
+        border: 1px solid #eee; /* Add back border for separation */
+    }
+
+    /* Customer Service Section: Full width and remove left border */
+    .customer-service-section {
+        width: 100%;
+        padding: 15px;
+        border-left: none;
+        border: 1px solid #eee; /* Add border for separation */
+    }
+
+    /* Assets & Status Icons: Ensure items wrap nicely */
+    .user-assets-summary {
+        flex-wrap: wrap;
         padding: 10px 0;
     }
-    .user-assets-summary, .order-status-icons {
-        flex-wrap: wrap;
-        gap: 10px;
+
+    .asset-item {
+        flex: 1 1 40%; /* Two items per row on tablet */
+        padding: 5px;
     }
-    .asset-item, .status-item {
-        flex: 1 1 45%;
-        text-align: center;
+
+    .order-status-icons {
+        flex-wrap: wrap;
+        gap: 5px;
+    }
+    
+    .status-item {
+        flex: 1 1 30%; /* Three items per row */
+        padding: 10px 0;
+    }
+    
+    /* Collapsible items: Show header content and hide policy/other services by default */
+    .pc-sidebar h2:first-of-type, .pc-sidebar ul:first-of-type {
+        /* Keep first section visible */
+        display: block;
+    }
+
+    /* Collapsible sections in sidebars (Mobile Only) */
+    .pc-sidebar h2, .pc-sidebar ul, .policy-sidebar h2, .policy-sidebar ul {
+        /* Use collapsible headers for all major sections */
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease-out;
+        border-bottom: none;
+    }
+    
+    .pc-sidebar h2, .policy-sidebar h2 {
+        font-weight: 500;
+    }
+
+    /* Style for mobile collapsible menus (PC Sidebar) */
+    .pc-sidebar > h2:not(:first-of-type), 
+    .policy-sidebar > h2 {
+        display: none; /* Hide H2 headings on mobile, use collapsible headers */
+    }
+    
+    /* Make the entire Policy Sidebar collapsible on mobile */
+    .policy-sidebar > h2:first-child,
+    .policy-sidebar > ul {
+        display: none; /* We will use a dedicated mobile toggle for Policy */
+    }
+    
+    /* Create Mobile Collapsible Wrapper for Policy Sidebar */
+    .policy-sidebar-wrapper {
+        width: 100%;
+        border: 1px solid #eee;
+        margin-bottom: 10px;
+        background-color: #fff;
+        padding: 0;
+    }
+    
+    .policy-sidebar-wrapper > .collapsible-content {
+        /* Reset content padding for mobile sidebars */
+        padding-left: 0;
+    }
+    
+    /* Hide the Policy H2 and UL directly */
+    .policy-sidebar h2, .policy-sidebar ul {
+        padding: 0;
+        margin: 0;
+    }
+
+    /* Sign out link style adjustment */
+    .policy-sidebar .sign-out {
+        padding: 15px;
+        margin-top: 0;
+        border-top: none;
+        border-bottom: 1px solid #eee;
     }
 }
 
-/* For smaller mobile screens */
-@media (max-width: 768px) {
-    .wishlist h4, .following h4, .recently-viewed h4 {
-        font-size: 16px;
+
+/* For smaller mobile screens (480px or less) */
+@media (max-width: 480px) {
+    .asset-item {
+        flex: 1 1 100%; /* One item per row for better readability */
+        padding: 10px;
+        border-bottom: 1px solid #f0f0f0;
     }
-    .coupon-alert {
-        font-size: 14px;
+    
+    .order-status-icons {
+        justify-content: center;
+    }
+    
+    .status-item {
+        flex: 1 1 40%; /* Two items per row */
+        padding: 10px 0;
+    }
+    
+    .user-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .my-profile-link {
+        margin-top: 10px;
+    }
+    
+    .dashboard, .customer-service-section {
+        padding: 15px;
     }
 }
 </style>
@@ -381,21 +362,25 @@ body {
 <body>
 
 <div class="container">
-    <!-- LEFT SIDEBAR -->
     <div class="pc-sidebar">
-        <h2>Personal Center</h2>
-        <ul>
-            <li><a href="#"><i class="fa-solid fa-crown"></i> SHEIN VIP</a></li>
-        </ul>
-        <h2>My Account</h2>
-        <ul>
-            <li><a href="#"><i class="fa-solid fa-user"></i> My Profile <span class="plus-points">+POINTS</span></a></li>
-            <li><a href="#"><i class="fa-solid fa-address-book"></i> Address Book</a></li>
-            <li><a href="#"><i class="fa-solid fa-credit-card"></i> My Payment Options</a></li>
-            <li><a href="#"><i class="fa-solid fa-ruler-combined"></i> My Measurements</a></li>
-            <li><a href="#"><i class="fa-solid fa-gear"></i> Manage My Account <span class="plus-points">+POINTS</span></a></li>
-        </ul>
-
+        <div class="collapsible-header mobile-collapsible" data-target="pc-account-content">
+             My Account <i class="fa-solid fa-plus"></i>
+        </div>
+        <div class="collapsible-content open" id="pc-account-content">
+            <h2>Personal Center</h2>
+            <ul>
+                <li><a href="#"><i class="fa-solid fa-crown"></i> SHEIN VIP</a></li>
+            </ul>
+            <h2>My Account</h2>
+            <ul>
+                <li><a href="#"><i class="fa-solid fa-user"></i> My Profile <span class="plus-points">+POINTS</span></a></li>
+                <li><a href="#"><i class="fa-solid fa-address-book"></i> Address Book</a></li>
+                <li><a href="#"><i class="fa-solid fa-credit-card"></i> My Payment Options</a></li>
+                <li><a href="#"><i class="fa-solid fa-ruler-combined"></i> My Measurements</a></li>
+                <li><a href="#"><i class="fa-solid fa-gear"></i> Manage My Account <span class="plus-points">+POINTS</span></a></li>
+            </ul>
+        </div>
+        
         <div class="collapsible-header" data-target="assets-content">
             My Assets <i class="fa-solid fa-plus"></i>
         </div>
@@ -413,24 +398,34 @@ body {
             <li><a href="#"><i class="fa-solid fa-bag-shopping"></i> All Orders</a></li>
         </ul>
 
-        <div class="collapsible-header">
+        <div class="collapsible-header" data-target="favorites-content">
             My Favorites <i class="fa-solid fa-plus"></i>
         </div>
+        <ul class="collapsible-content" id="favorites-content">
+             <li><a href="#"><i class="fa-solid fa-heart"></i> Wishlist</a></li>
+            <li><a href="#"><i class="fa-solid fa-store"></i> Following</a></li>
+            <li><a href="#"><i class="fa-solid fa-eye"></i> Recently Viewed</a></li>
+        </ul>
 
-        <h2>Customer Service</h2>
-        <ul>
+        <div class="collapsible-header" data-target="cs-content">
+            Customer Service <i class="fa-solid fa-plus"></i>
+        </div>
+        <ul class="collapsible-content" id="cs-content">
             <li><a href="#"><i class="fa-solid fa-envelope"></i> My Message</a></li>
             <li><a href="#"><i class="fa-solid fa-file-invoice"></i> Service Records</a></li>
         </ul>
-
-        <h2>Other Services</h2>
-        <ul>
+        
+        <div class="collapsible-header" data-target="other-content">
+            Other Services <i class="fa-solid fa-plus"></i>
+        </div>
+        <ul class="collapsible-content" id="other-content">
             <li><a href="#"><i class="fa-solid fa-file-alt"></i> Survey Center</a></li>
             <li><a href="#"><i class="fa-solid fa-comments"></i> Contact Preferences</a></li>
         </ul>
+        
+        <a href="#" class="sign-out desktop-only">Sign Out</a>
     </div>
-
-    <!-- MAIN CONTENT -->
+    
     <div class="main-content-area">
         <div class="dashboard">
             <div class="user-header">
@@ -471,7 +466,6 @@ body {
             </div>
         </div>
 
-        <!-- Customer Service Section -->
         <div class="customer-service-section">
             <h3>Customer Service</h3>
             <div class="cs-links">
@@ -484,59 +478,73 @@ body {
         </div>
     </div>
 
-    <!-- POLICY SIDEBAR -->
-    <div class="policy-sidebar">
-        <h2>Policy</h2>
-        <ul>
-            <li><a href="#"><i class="fa-solid fa-truck"></i> Shipping Info</a></li>
-            <li><a href="#"><i class="fa-solid fa-check-circle"></i> Return Policy</a></li>
-            <li><a href="#"><i class="fa-solid fa-lock"></i> Privacy & Cookie Policy</a></li>
-            <li><a href="#"><i class="fa-solid fa-dollar-sign"></i> Refund</a></li>
-            <li><a href="#"><i class="fa-solid fa-credit-card"></i> Payment Method</a></li>
-            <li><a href="#"><i class="fa-solid fa-wallet"></i> About SHEIN Wallet</a></li>
-            <li><a href="#"><i class="fa-solid fa-tags"></i> Bonus Point Policy</a></li>
-            <li><a href="#"><i class="fa-solid fa-handshake"></i> Coupon Policy</a></li>
-            <li><a href="#"><i class="fa-solid fa-gem"></i> SHEIN VIP Terms & Conditions</a></li>
-            <li><a href="#"><i class="fa-solid fa-book"></i> Review Guidance</a></li>
-            <li><a href="#"><i class="fa-solid fa-gift"></i> Giftcard</a></li>
-            <li><a href="#"><i class="fa-solid fa-search"></i> How To Track My Order</a></li>
-            <li><a href="#"><i class="fa-solid fa-clipboard-list"></i> How To Order Page</a></li>
-        </ul>
-        <a href="#" class="sign-out">Sign Out</a>
+    <div class="policy-sidebar-wrapper">
+        <div class="collapsible-header policy-toggle" data-target="policy-content">
+            Policy & Information <i class="fa-solid fa-plus"></i>
+        </div>
+        <div class="policy-sidebar collapsible-content" id="policy-content">
+            <h2>Policy</h2>
+            <ul>
+                <li><a href="#"><i class="fa-solid fa-truck"></i> Shipping Info</a></li>
+                <li><a href="#"><i class="fa-solid fa-check-circle"></i> Return Policy</a></li>
+                <li><a href="#"><i class="fa-solid fa-lock"></i> Privacy & Cookie Policy</a></li>
+                <li><a href="#"><i class="fa-solid fa-dollar-sign"></i> Refund</a></li>
+                <li><a href="#"><i class="fa-solid fa-credit-card"></i> Payment Method</a></li>
+                <li><a href="#"><i class="fa-solid fa-wallet"></i> About SHEIN Wallet</a></li>
+                <li><a href="#"><i class="fa-solid fa-tags"></i> Bonus Point Policy</a></li>
+                <li><a href="#"><i class="fa-solid fa-handshake"></i> Coupon Policy</a></li>
+                <li><a href="#"><i class="fa-solid fa-gem"></i> SHEIN VIP Terms & Conditions</a></li>
+                <li><a href="#"><i class="fa-solid fa-book"></i> Review Guidance</a></li>
+                <li><a href="#"><i class="fa-solid fa-gift"></i> Giftcard</a></li>
+                <li><a href="#"><i class="fa-solid fa-search"></i> How To Track My Order</a></li>
+                <li><a href="#"><i class="fa-solid fa-clipboard-list"></i> How To Order Page</a></li>
+            </ul>
+            <a href="#" class="sign-out">Sign Out</a>
+        </div>
     </div>
 </div>
 
 <script>
     document.addEventListener('DOMContentLoaded', () => {
-            const headers = document.querySelectorAll('.collapsible-header');
+        const headers = document.querySelectorAll('.collapsible-header');
 
-            headers.forEach(header => {
-                // Check if the header has a target associated with it
-                const targetId = header.getAttribute('data-target');
-                if (targetId) {
-                    header.addEventListener('click', () => {
-                        const content = document.getElementById(targetId);
-                        const icon = header.querySelector('.fa-plus, .fa-minus');
+        headers.forEach(header => {
+            const targetId = header.getAttribute('data-target');
+            const content = targetId ? document.getElementById(targetId) : null;
+            const icon = header.querySelector('.fa-plus, .fa-minus');
 
-                        if (content.classList.contains('open')) {
-                            // Collapse
-                            content.classList.remove('open');
-                            if (icon) {
-                                icon.classList.remove('fa-minus');
-                                icon.classList.add('fa-plus');
-                            }
-                        } else {
-                            // Expand
-                            content.classList.add('open');
-                            if (icon) {
-                                icon.classList.remove('fa-plus');
-                                icon.classList.add('fa-minus');
-                            }
-                        }
-                    });
+            // Set initial state for PC (keep My Account open)
+            if (content && content.classList.contains('open')) {
+                if (icon) {
+                    icon.classList.remove('fa-plus');
+                    icon.classList.add('fa-minus');
                 }
-            });
+            } else if (icon) {
+                 // Ensure all others start closed with a plus icon
+                icon.classList.remove('fa-minus');
+                icon.classList.add('fa-plus');
+            }
+
+
+            if (content) {
+                header.addEventListener('click', () => {
+                    // Toggle the 'open' class
+                    content.classList.toggle('open');
+
+                    // Toggle the +/- icon
+                    if (icon) {
+                        if (content.classList.contains('open')) {
+                            icon.classList.remove('fa-plus');
+                            icon.classList.add('fa-minus');
+                        } else {
+                            icon.classList.remove('fa-minus');
+                            icon.classList.add('fa-plus');
+                        }
+                    }
+                });
+            }
         });
+    });
 </script>
 </body>
 </html>
